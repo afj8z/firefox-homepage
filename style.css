@@ -1,0 +1,78 @@
+/* General Styles */
+body {
+  background: #1b1b21;
+  color: #c5c5cd;
+  font-family: "Courier New", monospace;
+  text-align: center;
+  margin: 30px auto;
+  max-width: 800px;
+}
+
+/* ASCII Header */
+pre {
+  font-size: 16px;
+  color: #8967e4;
+  white-space: pre-wrap;
+}
+
+/* Search Bar */
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #282a36;
+  padding: 10px;
+  border-radius: 5px;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.search-container span {
+  color: #72e7ac;
+  padding-right: 5px;
+}
+
+#search-box {
+  background: transparent;
+  border: none;
+  color: #ebebfa;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+}
+
+/* Link Columns */
+.columns {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.column {
+  background: #282a36;
+  padding: 15px;
+  border-radius: 8px;
+  width: 30%;
+}
+
+.column h2 {
+  font-size: 18px;
+  color: #5bbbe3;
+}
+
+.column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.column li {
+  margin: 5px 0;
+}
+
+.column a {
+  color: #e3a65b;
+  text-decoration: none;
+}
+
+.column a:hover {
+  text-decoration: underline;
+}
