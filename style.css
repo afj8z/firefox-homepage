@@ -19,7 +19,7 @@ pre {
 .search-container {
   display: flex;
   align-items: center;
-  background: #312b48;
+  background: #282a36;
   padding: 10px;
   border-radius: 5px;
   width: 80%;
@@ -34,7 +34,7 @@ pre {
 #search-box {
   background: transparent;
   border: none;
-  color: white;
+  color: #ebebfa;
   font-size: 16px;
   width: 100%;
   outline: none;
