@@ -1,0 +1,353 @@
+:root {
+  --shade-0: #1b1b21; /* Darkest base */
+  --shade-1: #22232f; /* Dark with blue-gray tint */
+  --shade-2: #282a36; /* Deep, cool blue-gray */
+  --shade-3: #2f303d; /* Slightly lighter with subtle warmth */
+  --shade-4: #353746; /* Mid-dark blue-gray */
+  --shade-5: #3e4050; /* Soft neutral */
+  --shade-6: #444453; /* Balanced gray */
+  --shade-7: #535569; /* Blue-leaning mid */
+  --shade-8: #616172; /* Neutral gray */
+  --shade-9: #727283; /* Mid-light, slightly cool */
+  --shade-10: #87879b; /* Blue-heavy lighter gray */
+  --shade-11: #a0a0ad; /* Softer, closer to neutral */
+  --shade-12: #bcbccd; /* Light blue-gray */
+  --shade-13: #d0d0da; /* Lightest */
+  --shade-14: #ebebfa;
+
+  --dark-accent0: #1ba6ba;
+  --dark-accent1: #935a6e;
+  --dark-accent2: #e3a65b;
+  --dark-accent3: #72e7ac;
+  --dark-accent4: #5bbbe3;
+  --dark-accent5: #8967e4;
+  --dark-accent6: #ce58e2;
+  --dark-accent7: #e37d5b;
+}
+
+/* ================= DOG MODE ================= */
+body.dog-mode {
+  overflow: hidden;
+  position: relative;
+  transition: background 0.5s ease-in-out;
+}
+
+/* Primary background layer */
+#dog-background {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  filter: brightness(0.7);
+  transition: filter 0.5s ease-in-out;
+}
+
+/* Secondary background layer (slightly larger, less bright, deeper layer) */
+#dog-background-secondary {
+  position: absolute;
+  width: 110vw;
+  height: 110vh;
+  top: -5vh;
+  left: -5vw;
+  z-index: -2;
+  filter: brightness(0.5);
+  transition: filter 0.5s ease-in-out;
+}
+
+/* Individual dog tiles */
+.dog-tile {
+  position: absolute;
+  background-size: contain;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Slightly larger, deeper tiles */
+.dog-tile.secondary {
+  filter: brightness(0.4);
+}
+
+/* ================= ASCII HEADER - FUN WAGGING + GLOW ================= */
+body.dog-mode #ascii-header {
+  font-size: 17px;
+  font-family: monospace;
+  white-space: pre;
+  text-align: center;
+  background: linear-gradient(30deg, #ebebfa, #ebebfa, #c5c5cd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 25px;
+  letter-spacing: 2px;
+  animation: wag-tail 1.2s infinite ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+body.dog-mode #ascii-header:hover {
+  animation: wag-tail 0.3s infinite ease-in-out,
+    glow-effect 0.7s infinite alternate;
+  scale: 1.05;
+}
+
+/* 🐶 Wagging Effect for ASCII Header */
+@keyframes wag-tail {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+/* ✨ Subtle Glow Effect */
+@keyframes glow-effect {
+  0% {
+    text-shadow: -4px -4px 4px var(--fare-accent1), -4px -4px 5px var(--shade-8);
+  }
+  100% {
+    text-shadow: 4px 4px 10px var(--shade-13), 4px 4px 10px var(--dark-accent2);
+  }
+}
+
+/* ================= DOG MODE SEARCH BOX ================= */
+body.dog-mode .search-container {
+  background: #1b1b2150;
+  border-radius: 15px;
+  width: 70%;
+  padding: 1px 10px;
+  max-width: 600px;
+  font-size: 40px;
+  color: var(--dark-accent1);
+  border: 1px solid var(--dark-accent1);
+  text-shadow: 0 0 10px;
+  transition: background 0.3s ease-in-out;
+}
+body.dog-mode #search-output {
+  color: var(--shade-14);
+  font-family: "Courier New", monospace;
+  font-size: 35px;
+}
+/* 🐾 Fun Bouncing Animation */
+@keyframes paw-bounce {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Normal blinking cursor */
+.dog-mode .cursor {
+  font-weight: bold;
+  color: var(--dark-accent1);
+  animation: static-blink 1s steps(1, end) infinite;
+}
+
+/* Full block cursor when in insert mode */
+.cursor.block {
+  background-color: var(--dark-accent1);
+  width: 0.6em;
+  height: 1.2em;
+  display: inline-block;
+  vertical-align: middle;
+  animation: static-blink 1s steps(1, end) infinite;
+}
+
+@keyframes static-blink {
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes dog-shake {
+  0% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(1deg);
+  }
+}
+
+/* ================= FOOTER ================= */
+body.dog-mode .footer {
+  margin-top: 40px;
+  color: var(--dark-accent2);
+  font-size: 14px;
+  text-shadow: 0 0 5px #e3a65bb3;
+}
+
+/* ================= 🐶 SUPER FUN DOG MODE COLUMNS ================= */
+body.dog-mode .columns {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  width: 80%;
+  max-width: 1000px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fade-in-columns 0.6s forwards ease-in-out;
+}
+
+/* 🔥 Fun pop-in animation when Dog Mode is enabled */
+@keyframes fade-in-columns {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= 🏠 Individual Link Containers ================= */
+body.dog-mode .column {
+  padding: 25px;
+  border-radius: 14px;
+  width: 30%;
+  text-align: left;
+  box-shadow: 0px 5px 15px #e3a65b80;
+  border: 2px solid var(--dark-accent1);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background: #1b1b2150;
+}
+
+/* 🐕 Fun effect when hovering a column */
+body.dog-mode .column:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0px 10px 20px #e3a65bb3;
+}
+
+/* ================= 🐾 FUN HEADING EFFECTS ================= */
+body.dog-mode .column h2 {
+  font-size: 20px;
+  color: var(--dark-shade14);
+  margin-bottom: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: wiggle-header 1.5s infinite ease-in-out alternate;
+}
+
+/* 🎭 Wiggle Animation for Headers */
+@keyframes wiggle-header {
+  0% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(1deg);
+  }
+}
+
+/* ================= 🐕 Links with Bounce Effect ================= */
+body.dog-mode .column a {
+  color: var(--dark-accent2);
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+  display: inline-block;
+  padding: 6px;
+  transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  position: relative;
+}
+
+body.dog-mode .column a:hover {
+  color: var(--dark-accent1);
+  transform: scale(1.05) rotate(-1deg);
+  animation: bounce 0.3s ease-in-out;
+}
+
+/* Bouncing Animation */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Paw Print Bullet Points */
+body.dog-mode .column ul {
+  list-style: none;
+  padding: 0;
+}
+
+body.dog-mode .column li {
+  margin: 8px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+body.dog-mode .icon svg {
+  fill: var(--dark-accent2); /* Change color */
+  width: 50px; /* Resize if needed */
+  height: 50px;
+  transition: transform 0.3s ease-in-out, fill 0.3s;
+}
+
+/* 🐶 Fun effect: Make icons wiggle */
+body.dog-mode .icon svg:hover {
+  transform: rotate(-5deg) scale(1.1);
+}
+
+/* 🐶 Paw Icon on Each Link */
+body.dog-mode .column li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  margin-right: 2px;
+  bottom: 4px;
+  color: var(--dark-accent1);
+  font-size: 40px;
+  animation: paw-bounce 1.2s infinite alternate;
+}
+
+/* ================= 🎯 Selected Link Highlight ================= */
+body.dog-mode .column a:focus,
+body.dog-mode .column a.selected {
+  background: var(--dark-accent2);
+  color: var(--shade-14);
+  padding: 3px 6px;
+  border-radius: 15px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  animation: shake 0.3s ease-in-out;
+  margin: 0px 3px;
+}
+
+/* 🌀 Shake Effect for Selected Links */
+@keyframes shake {
+  0% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(1deg);
+  }
+}
+
+body.dog-mode .column a:hover::after {
+  content: " ";
+  position: absolute;
+  margin-left: 5px;
+  bottom: -4px;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  font-size: 40px;
+  animation: paw-bounce 1.2s infinite alternate;
+}
+/* ================= SMOOTH DOG MODE TRANSITION ================= */
+body {
+  transition: background 0.5s ease-in-out, filter 0.5s ease-in-out;
+}
