@@ -9,35 +9,71 @@ body {
 }
 
 /* ASCII Header */
-pre {
+#ascii-header {
   font-size: 16px;
-  color: #8967e4;
-  white-space: pre-wrap;
+  font-family: monospace;
+  white-space: pre;
+  text-align: center;
+  background: linear-gradient(
+    90deg,
+    #8967e4,
+    #ce58e2,
+    #e35b8b,
+    #e3a65b,
+    #72e7ac,
+    #5bbbe3
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Search Bar */
+/* Search Bar - Make it look like a Terminal Prompt */
 .search-container {
   display: flex;
   align-items: center;
-  background: #282a36;
+  justify-content: left;
   padding: 10px;
-  border-radius: 5px;
   width: 80%;
   margin: 20px auto;
+  font-family: "Courier New", monospace;
+  font-size: 18px;
+  color: #72e7ac;
+  background: none;
+  border: none;
+  outline: none;
+  position: relative;
+}
+
+/* Remove Default Input Styling */
+#search-box {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #c5c5cd;
+  font-family: "Courier New", monospace;
+  font-size: 18px;
+  width: 100%;
+  caret-color: #72e7ac;
+}
+
+/* Custom Blinking Cursor */
+.cursor {
+  font-weight: bold;
+  display: inline-block;
+  animation: blink 0.8s infinite;
+  color: #72e7ac;
+}
+
+/* Blinking Effect */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 .search-container span {
   color: #72e7ac;
   padding-right: 5px;
-}
-
-#search-box {
-  background: transparent;
-  border: none;
-  color: #ebebfa;
-  font-size: 16px;
-  width: 100%;
-  outline: none;
 }
 
 /* Link Columns */
