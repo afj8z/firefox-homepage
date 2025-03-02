@@ -19,17 +19,42 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchBox = document.getElementById("search-box");
   const output = document.getElementById("search-output");
   const cursorSpan = document.querySelector(".cursor");
-  const links = [...document.querySelectorAll(".column a")]; // Collect all links
-  let selectedIndex = -1; // -1 means search bar is selected
+  const columns = document.querySelectorAll(".column");
+  let selectedColumn = 0; // Track current column index
+  let selectedIndex = 0; // Track row index inside column
   let inSearchMode = true; // Start in insert mode
 
-  if (searchBox) {
-    searchBox.addEventListener("input", function () {
-      output.innerText = searchBox.value;
-    });
+  // Collect links for each column
+  const columnLinks = Array.from(columns).map((column) => [
+    ...column.querySelectorAll("a"),
+  ]);
 
-    searchBox.addEventListener("keypress", function (event) {
+  function updateSelection() {
+    columnLinks.forEach((links, colIndex) => {
+      links.forEach((link, rowIndex) => {
+        if (colIndex === selectedColumn && rowIndex === selectedIndex) {
+          link.classList.add("selected");
+        } else {
+          link.classList.remove("selected");
+        }
+      });
+    });
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (inSearchMode) {
+      if (event.key === "Escape") {
+        // Exit search mode
+        inSearchMode = false;
+        searchBox.blur();
+        selectedColumn = 0;
+        selectedIndex = 0;
+        updateSelection();
+        event.preventDefault();
+      }
+
       if (event.key === "Enter") {
+        // Perform Google Search
         let query = searchBox.value.trim();
         if (query) {
           window.location.href = `https://www.google.com/search?q=${encodeURIComponent(
@@ -37,73 +62,55 @@ document.addEventListener("DOMContentLoaded", () => {
           )}`;
         }
       }
-    });
-
-    searchBox.addEventListener("blur", () => searchBox.focus());
-    searchBox.focus();
-  }
-
-  // Function to update selection highlighting
-  function updateSelection() {
-    links.forEach((link, index) => {
-      if (index === selectedIndex) {
-        link.style.backgroundColor = "#5bbbe3"; // Highlight selected link
-        link.style.color = "#1b1b21"; // Change text color for contrast
-      } else {
-        link.style.backgroundColor = "transparent";
-        link.style.color = "#e3a65b"; // Reset color
-      }
-    });
-  }
-
-  // Vim-style keyboard navigation
-  document.addEventListener("keydown", (event) => {
-    if (inSearchMode) {
-      if (event.key === "Escape") {
-        // Exit search mode
-        inSearchMode = false;
-        searchBox.blur();
-        selectedIndex = 0; // Move to first link
-        updateSelection();
-        event.preventDefault();
-      }
       return;
     }
 
     switch (event.key) {
-      case "h": // Move left
-        if (selectedIndex > 0) selectedIndex--;
-        updateSelection();
+      case "h": // Move left (previous column)
+        if (selectedColumn > 0) {
+          selectedColumn--;
+          selectedIndex = Math.min(
+            selectedIndex,
+            columnLinks[selectedColumn].length - 1
+          );
+          updateSelection();
+        }
         break;
 
-      case "l": // Move right
-        if (selectedIndex < links.length - 1) selectedIndex++;
-        updateSelection();
+      case "l": // Move right (next column)
+        if (selectedColumn < columnLinks.length - 1) {
+          selectedColumn++;
+          selectedIndex = Math.min(
+            selectedIndex,
+            columnLinks[selectedColumn].length - 1
+          );
+          updateSelection();
+        }
         break;
 
-      case "j": // Move down (go to search box)
-        selectedIndex = -1;
-        inSearchMode = true;
-        searchBox.focus();
-        updateSelection();
+      case "j": // Move down within column
+        if (selectedIndex < columnLinks[selectedColumn].length - 1) {
+          selectedIndex++;
+          updateSelection();
+        }
         break;
 
-      case "k": // Move up (go to first link)
-        selectedIndex = 0;
-        updateSelection();
+      case "k": // Move up within column
+        if (selectedIndex > 0) {
+          selectedIndex--;
+          updateSelection();
+        }
         break;
 
       case "i": // Enter insert mode (focus search)
         inSearchMode = true;
-        selectedIndex = -1;
         searchBox.focus();
-        updateSelection();
         event.preventDefault();
         break;
 
       case "Enter": // Open selected link
-        if (selectedIndex >= 0) {
-          links[selectedIndex].click();
+        if (columnLinks[selectedColumn][selectedIndex]) {
+          columnLinks[selectedColumn][selectedIndex].click();
         }
         break;
     }
