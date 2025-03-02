@@ -9,7 +9,7 @@ fetch("assets/header.txt")
   .then((text) => {
     const header = document.getElementById("ascii-header");
     if (header) {
-      header.innerText = text; // Ensures ASCII formatting is preserved
+      header.innerText = text;
     }
   })
   .catch((error) => console.error("Error loading ASCII art:", error));
@@ -17,14 +17,12 @@ fetch("assets/header.txt")
 // Handle search input and command prompt display
 document.addEventListener("DOMContentLoaded", () => {
   const searchBox = document.getElementById("search-box");
-  const prompt = document.querySelector(".search-container");
-  const cursorSpan = document.createElement("span");
-  cursorSpan.className = "cursor";
-  cursorSpan.innerText = "_";
+  const output = document.getElementById("search-output");
+  const cursorSpan = document.querySelector(".cursor");
 
-  if (searchBox && prompt) {
+  if (searchBox) {
     searchBox.addEventListener("input", function () {
-      document.getElementById("search-output").innerText = searchBox.value;
+      output.innerText = searchBox.value;
     });
 
     searchBox.addEventListener("keypress", function (event) {
@@ -38,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Keep focus on input field
     searchBox.addEventListener("blur", () => searchBox.focus());
     searchBox.focus();
   }

@@ -49,11 +49,18 @@ body {
   background: transparent;
   border: none;
   outline: none;
-  color: #c5c5cd;
+  color: transparent; /* Hides text inside input */
+  font-size: 18px;
+  position: absolute; /* Keeps it in place but invisible */
+  left: 0;
+  width: 100%;
+}
+
+/* Ensure text inside search-output is visible */
+#search-output {
+  color: #c5c5cd; /* Terminal text color */
   font-family: "Courier New", monospace;
   font-size: 18px;
-  width: 100%;
-  caret-color: #72e7ac;
 }
 
 /* Custom Blinking Cursor */
